@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {User} from "../model/user.model";
-import {Observable} from "rxjs/index";
-import {ApiResponse} from "../model/api.response";
+import {User} from '../model/user.model';
+import {Observable} from 'rxjs/index';
+import {ApiResponse} from '../model/api.response';
 
 @Injectable()
 export class ApiService {
 
   constructor(private http: HttpClient) { }
+  // tslint:disable-next-line:no-inferrable-types
   baseUrl: string = 'http://localhost:8080/users/';
 
-  login(loginPayload) : Observable<ApiResponse> {
+  login(loginPayload): Observable<ApiResponse> {
     return this.http.post<ApiResponse>('http://localhost:8080/' + 'token/generate-token', loginPayload);
   }
 
-  getUsers() : Observable<ApiResponse> {
+  getUsers(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(this.baseUrl);
   }
 

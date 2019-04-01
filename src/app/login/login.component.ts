@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ApiService} from "../core/api.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ApiService} from '../core/api.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +11,7 @@ import {ApiService} from "../core/api.service";
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  // tslint:disable-next-line:no-inferrable-types
   invalidLogin: boolean = false;
   constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
 
@@ -21,13 +22,14 @@ export class LoginComponent implements OnInit {
     const loginPayload = {
       username: this.loginForm.controls.username.value,
       password: this.loginForm.controls.password.value
-    }
+    };
     this.apiService.login(loginPayload).subscribe(data => {
-      debugger;
-      if(data.status === 200) {
+      // tslint:disable-next-line:no-debugger
+      // debugger;
+      if (data.status === 200) {
         window.localStorage.setItem('token', data.result.token);
         this.router.navigate(['list-user']);
-      }else {
+      } else {
         this.invalidLogin = true;
         alert(data.message);
       }
@@ -42,6 +44,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
+  addUser(): void {
+    this.router.navigate(['add-user']);
+  }
 
 }
